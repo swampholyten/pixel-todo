@@ -11,10 +11,33 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as SettingsImport } from './routes/settings'
+import { Route as CompletedImport } from './routes/completed'
+import { Route as AllImport } from './routes/all'
 import { Route as IndexImport } from './routes/index'
-import { Route as DemoTanstackQueryImport } from './routes/demo.tanstack-query'
+import { Route as TaskTaskIdImport } from './routes/task.$taskId'
+import { Route as TagTagNameImport } from './routes/tag.$tagName'
+import { Route as ListListIdImport } from './routes/list.$listId'
 
 // Create/Update Routes
+
+const SettingsRoute = SettingsImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CompletedRoute = CompletedImport.update({
+  id: '/completed',
+  path: '/completed',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AllRoute = AllImport.update({
+  id: '/all',
+  path: '/all',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
@@ -22,9 +45,21 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const DemoTanstackQueryRoute = DemoTanstackQueryImport.update({
-  id: '/demo/tanstack-query',
-  path: '/demo/tanstack-query',
+const TaskTaskIdRoute = TaskTaskIdImport.update({
+  id: '/task/$taskId',
+  path: '/task/$taskId',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const TagTagNameRoute = TagTagNameImport.update({
+  id: '/tag/$tagName',
+  path: '/tag/$tagName',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ListListIdRoute = ListListIdImport.update({
+  id: '/list/$listId',
+  path: '/list/$listId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -39,11 +74,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/demo/tanstack-query': {
-      id: '/demo/tanstack-query'
-      path: '/demo/tanstack-query'
-      fullPath: '/demo/tanstack-query'
-      preLoaderRoute: typeof DemoTanstackQueryImport
+    '/all': {
+      id: '/all'
+      path: '/all'
+      fullPath: '/all'
+      preLoaderRoute: typeof AllImport
+      parentRoute: typeof rootRoute
+    }
+    '/completed': {
+      id: '/completed'
+      path: '/completed'
+      fullPath: '/completed'
+      preLoaderRoute: typeof CompletedImport
+      parentRoute: typeof rootRoute
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsImport
+      parentRoute: typeof rootRoute
+    }
+    '/list/$listId': {
+      id: '/list/$listId'
+      path: '/list/$listId'
+      fullPath: '/list/$listId'
+      preLoaderRoute: typeof ListListIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/tag/$tagName': {
+      id: '/tag/$tagName'
+      path: '/tag/$tagName'
+      fullPath: '/tag/$tagName'
+      preLoaderRoute: typeof TagTagNameImport
+      parentRoute: typeof rootRoute
+    }
+    '/task/$taskId': {
+      id: '/task/$taskId'
+      path: '/task/$taskId'
+      fullPath: '/task/$taskId'
+      preLoaderRoute: typeof TaskTaskIdImport
       parentRoute: typeof rootRoute
     }
   }
@@ -53,37 +123,84 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/all': typeof AllRoute
+  '/completed': typeof CompletedRoute
+  '/settings': typeof SettingsRoute
+  '/list/$listId': typeof ListListIdRoute
+  '/tag/$tagName': typeof TagTagNameRoute
+  '/task/$taskId': typeof TaskTaskIdRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/all': typeof AllRoute
+  '/completed': typeof CompletedRoute
+  '/settings': typeof SettingsRoute
+  '/list/$listId': typeof ListListIdRoute
+  '/tag/$tagName': typeof TagTagNameRoute
+  '/task/$taskId': typeof TaskTaskIdRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/all': typeof AllRoute
+  '/completed': typeof CompletedRoute
+  '/settings': typeof SettingsRoute
+  '/list/$listId': typeof ListListIdRoute
+  '/tag/$tagName': typeof TagTagNameRoute
+  '/task/$taskId': typeof TaskTaskIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/demo/tanstack-query'
+  fullPaths:
+    | '/'
+    | '/all'
+    | '/completed'
+    | '/settings'
+    | '/list/$listId'
+    | '/tag/$tagName'
+    | '/task/$taskId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/demo/tanstack-query'
-  id: '__root__' | '/' | '/demo/tanstack-query'
+  to:
+    | '/'
+    | '/all'
+    | '/completed'
+    | '/settings'
+    | '/list/$listId'
+    | '/tag/$tagName'
+    | '/task/$taskId'
+  id:
+    | '__root__'
+    | '/'
+    | '/all'
+    | '/completed'
+    | '/settings'
+    | '/list/$listId'
+    | '/tag/$tagName'
+    | '/task/$taskId'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
+  AllRoute: typeof AllRoute
+  CompletedRoute: typeof CompletedRoute
+  SettingsRoute: typeof SettingsRoute
+  ListListIdRoute: typeof ListListIdRoute
+  TagTagNameRoute: typeof TagTagNameRoute
+  TaskTaskIdRoute: typeof TaskTaskIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  DemoTanstackQueryRoute: DemoTanstackQueryRoute,
+  AllRoute: AllRoute,
+  CompletedRoute: CompletedRoute,
+  SettingsRoute: SettingsRoute,
+  ListListIdRoute: ListListIdRoute,
+  TagTagNameRoute: TagTagNameRoute,
+  TaskTaskIdRoute: TaskTaskIdRoute,
 }
 
 export const routeTree = rootRoute
@@ -97,14 +214,34 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/demo/tanstack-query"
+        "/all",
+        "/completed",
+        "/settings",
+        "/list/$listId",
+        "/tag/$tagName",
+        "/task/$taskId"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/demo/tanstack-query": {
-      "filePath": "demo.tanstack-query.tsx"
+    "/all": {
+      "filePath": "all.tsx"
+    },
+    "/completed": {
+      "filePath": "completed.tsx"
+    },
+    "/settings": {
+      "filePath": "settings.tsx"
+    },
+    "/list/$listId": {
+      "filePath": "list.$listId.tsx"
+    },
+    "/tag/$tagName": {
+      "filePath": "tag.$tagName.tsx"
+    },
+    "/task/$taskId": {
+      "filePath": "task.$taskId.tsx"
     }
   }
 }

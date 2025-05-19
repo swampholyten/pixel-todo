@@ -1,17 +1,26 @@
-import { Link } from '@tanstack/react-router'
+import { Home, ListChecks, CheckCircle, Settings } from "lucide-react";
+import { Link, useRouter } from "@tanstack/react-router";
 
-export default function Header() {
+const links = [
+  { to: "/", label: "Today", icon: Home },
+  { to: "/all", label: "All", icon: ListChecks },
+  { to: "/completed", label: "Completed", icon: CheckCircle },
+  { to: "/settings", label: "Settings", icon: Settings },
+];
+
+export default function Navbar() {
   return (
-    <header className="p-2 flex gap-2 bg-white text-black justify-between">
-      <nav className="flex flex-row">
-        <div className="px-2 font-bold">
-          <Link to="/">Home</Link>
-        </div>
-
-        <div className="px-2 font-bold">
-          <Link to="/demo/tanstack-query">TanStack Query</Link>
-        </div>
-      </nav>
-    </header>
-  )
+    <aside className="bg-muted/50 border-r flex flex-col p-2 gap-2 w-full md:w-48">
+      {links.map(({ to, label, icon: Icon }) => (
+        <Link
+          key={to}
+          to={to}
+          className={`flex items-center gap-2 rounded-xl p-2 hover:bg-muted transition [&.active]:bg-muted`}
+        >
+          <Icon size={18} />
+          <span>{label}</span>
+        </Link>
+      ))}
+    </aside>
+  );
 }
