@@ -15,9 +15,6 @@ import { Route as SettingsImport } from './routes/settings'
 import { Route as CompletedImport } from './routes/completed'
 import { Route as AllImport } from './routes/all'
 import { Route as IndexImport } from './routes/index'
-import { Route as TaskTaskIdImport } from './routes/task.$taskId'
-import { Route as TagTagNameImport } from './routes/tag.$tagName'
-import { Route as ListListIdImport } from './routes/list.$listId'
 
 // Create/Update Routes
 
@@ -42,24 +39,6 @@ const AllRoute = AllImport.update({
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const TaskTaskIdRoute = TaskTaskIdImport.update({
-  id: '/task/$taskId',
-  path: '/task/$taskId',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const TagTagNameRoute = TagTagNameImport.update({
-  id: '/tag/$tagName',
-  path: '/tag/$tagName',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ListListIdRoute = ListListIdImport.update({
-  id: '/list/$listId',
-  path: '/list/$listId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -95,27 +74,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsImport
       parentRoute: typeof rootRoute
     }
-    '/list/$listId': {
-      id: '/list/$listId'
-      path: '/list/$listId'
-      fullPath: '/list/$listId'
-      preLoaderRoute: typeof ListListIdImport
-      parentRoute: typeof rootRoute
-    }
-    '/tag/$tagName': {
-      id: '/tag/$tagName'
-      path: '/tag/$tagName'
-      fullPath: '/tag/$tagName'
-      preLoaderRoute: typeof TagTagNameImport
-      parentRoute: typeof rootRoute
-    }
-    '/task/$taskId': {
-      id: '/task/$taskId'
-      path: '/task/$taskId'
-      fullPath: '/task/$taskId'
-      preLoaderRoute: typeof TaskTaskIdImport
-      parentRoute: typeof rootRoute
-    }
   }
 }
 
@@ -126,9 +84,6 @@ export interface FileRoutesByFullPath {
   '/all': typeof AllRoute
   '/completed': typeof CompletedRoute
   '/settings': typeof SettingsRoute
-  '/list/$listId': typeof ListListIdRoute
-  '/tag/$tagName': typeof TagTagNameRoute
-  '/task/$taskId': typeof TaskTaskIdRoute
 }
 
 export interface FileRoutesByTo {
@@ -136,9 +91,6 @@ export interface FileRoutesByTo {
   '/all': typeof AllRoute
   '/completed': typeof CompletedRoute
   '/settings': typeof SettingsRoute
-  '/list/$listId': typeof ListListIdRoute
-  '/tag/$tagName': typeof TagTagNameRoute
-  '/task/$taskId': typeof TaskTaskIdRoute
 }
 
 export interface FileRoutesById {
@@ -147,39 +99,14 @@ export interface FileRoutesById {
   '/all': typeof AllRoute
   '/completed': typeof CompletedRoute
   '/settings': typeof SettingsRoute
-  '/list/$listId': typeof ListListIdRoute
-  '/tag/$tagName': typeof TagTagNameRoute
-  '/task/$taskId': typeof TaskTaskIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/all'
-    | '/completed'
-    | '/settings'
-    | '/list/$listId'
-    | '/tag/$tagName'
-    | '/task/$taskId'
+  fullPaths: '/' | '/all' | '/completed' | '/settings'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/all'
-    | '/completed'
-    | '/settings'
-    | '/list/$listId'
-    | '/tag/$tagName'
-    | '/task/$taskId'
-  id:
-    | '__root__'
-    | '/'
-    | '/all'
-    | '/completed'
-    | '/settings'
-    | '/list/$listId'
-    | '/tag/$tagName'
-    | '/task/$taskId'
+  to: '/' | '/all' | '/completed' | '/settings'
+  id: '__root__' | '/' | '/all' | '/completed' | '/settings'
   fileRoutesById: FileRoutesById
 }
 
@@ -188,9 +115,6 @@ export interface RootRouteChildren {
   AllRoute: typeof AllRoute
   CompletedRoute: typeof CompletedRoute
   SettingsRoute: typeof SettingsRoute
-  ListListIdRoute: typeof ListListIdRoute
-  TagTagNameRoute: typeof TagTagNameRoute
-  TaskTaskIdRoute: typeof TaskTaskIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -198,9 +122,6 @@ const rootRouteChildren: RootRouteChildren = {
   AllRoute: AllRoute,
   CompletedRoute: CompletedRoute,
   SettingsRoute: SettingsRoute,
-  ListListIdRoute: ListListIdRoute,
-  TagTagNameRoute: TagTagNameRoute,
-  TaskTaskIdRoute: TaskTaskIdRoute,
 }
 
 export const routeTree = rootRoute
@@ -216,10 +137,7 @@ export const routeTree = rootRoute
         "/",
         "/all",
         "/completed",
-        "/settings",
-        "/list/$listId",
-        "/tag/$tagName",
-        "/task/$taskId"
+        "/settings"
       ]
     },
     "/": {
@@ -233,15 +151,6 @@ export const routeTree = rootRoute
     },
     "/settings": {
       "filePath": "settings.tsx"
-    },
-    "/list/$listId": {
-      "filePath": "list.$listId.tsx"
-    },
-    "/tag/$tagName": {
-      "filePath": "tag.$tagName.tsx"
-    },
-    "/task/$taskId": {
-      "filePath": "task.$taskId.tsx"
     }
   }
 }
