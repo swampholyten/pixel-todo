@@ -13,6 +13,17 @@ import type { Task } from "@/lib/db";
 import { cn } from "@/lib/utils";
 import { useTasks } from "@/hooks/useTasks";
 import { Button } from "./ui/button";
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from "@/components/ui/alert-dialog";
 
 interface Props {
   tasks: Task[];
@@ -25,7 +36,10 @@ const priorityClass: Record<Task["priority"], string> = {
   high: "text-red-600",
 };
 
-export default function TodoTable({ tasks, emptyMessage }: Props) {
+export default function TodoTable({
+  tasks,
+  emptyMessage = "No tasks yet",
+}: Props) {
   const { toggle, remove } = useTasks();
 
   return (
@@ -61,12 +75,32 @@ export default function TodoTable({ tasks, emptyMessage }: Props) {
               {task.priority ?? "—"}
             </TableCell>
             <TableCell>
-              <Button
-                onClick={() => remove(task.id)}
-                className="p-1 hover:bg-muted rounded-md"
-              >
-                <Trash2 size={16} />
-              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="hover:bg-muted rounded-md"
+                  >
+                    <Trash2 size={16} />
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Delete task?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This will permanently remove "{task.title}". You can’t
+                      undo this.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={() => remove(task.id)}>
+                      Delete
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </TableCell>
           </TableRow>
         ))}
@@ -74,9 +108,9 @@ export default function TodoTable({ tasks, emptyMessage }: Props) {
           <TableRow>
             <TableCell
               colSpan={5}
-              className="text-center py-3 text-muted-foreground"
+              className="text-center py-6 text-muted-foreground"
             >
-              <p>{emptyMessage}</p>
+              {emptyMessage}
             </TableCell>
           </TableRow>
         )}
