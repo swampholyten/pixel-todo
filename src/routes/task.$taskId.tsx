@@ -1,4 +1,4 @@
-import { useTasks } from "@/lib/taskContext";
+import { useTasks } from "@/hooks/useTasks";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/task/$taskId")({

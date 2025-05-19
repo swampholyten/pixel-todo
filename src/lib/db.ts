@@ -1,12 +1,14 @@
 import Dexie, { type Table } from "dexie";
 import { v4 as uuid } from "uuid";
 
+export type Priority = "low" | "medium" | "high";
+
 export interface Task {
   id: string;
   title: string;
   completed: boolean;
   dueDate?: string;
-  priority: "low" | "medium" | "high";
+  priority: Priority;
   tags?: string[];
   listId?: string;
   notes?: string;

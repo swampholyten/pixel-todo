@@ -1,5 +1,5 @@
 import { Home, ListChecks, CheckCircle, Settings } from "lucide-react";
-import { Link, useRouter } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 
 const links = [
   { to: "/", label: "Today", icon: Home },
@@ -15,7 +15,7 @@ export default function Navbar() {
         <Link
           key={to}
           to={to}
-          className={`flex items-center gap-2 rounded-xl p-2 hover:bg-muted transition [&.active]:bg-muted`}
+          className="flex items-center gap-2 rounded-xl p-2 hover:bg-muted transition [&.active]:bg-muted"
         >
           <Icon size={18} />
           <span>{label}</span>

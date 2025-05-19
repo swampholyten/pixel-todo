@@ -1,4 +1,4 @@
-import { useTasks } from "@/lib/taskContext";
+import { useTasks } from "@/hooks/useTasks";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -16,12 +16,13 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import dayjs from "dayjs";
+import type { Priority } from "@/lib/db";
 
 export default function AddTaskBar() {
   const { add } = useTasks();
   const [title, setTitle] = useState("");
   const [date, setDate] = useState<Date | null>(null);
-  const [priority, setPriority] = useState<"low" | "medium" | "high">("low");
+  const [priority, setPriority] = useState<Priority>("low");
   const [openCal, setOpenCal] = useState(false);
 
   const submit = async () => {
@@ -62,7 +63,10 @@ export default function AddTaskBar() {
         </PopoverContent>
       </Popover>
 
-      <Select value={priority} onValueChange={(val) => setPriority(val as any)}>
+      <Select
+        value={priority}
+        onValueChange={(val) => setPriority(val as Priority)}
+      >
         <SelectTrigger className="sm:col-span-1">
           <SelectValue placeholder="Priority" />
         </SelectTrigger>

@@ -9,9 +9,10 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Trash2 } from "lucide-react";
 import dayjs from "dayjs";
-import { type Task } from "@/lib/db";
+import type { Task } from "@/lib/db";
 import { cn } from "@/lib/utils";
-import { useTasks } from "@/lib/taskContext";
+import { useTasks } from "@/hooks/useTasks";
+import { Button } from "./ui/button";
 
 interface Props {
   tasks: Task[];
@@ -31,11 +32,11 @@ export default function TodoTable({ tasks, emptyMessage }: Props) {
     <Table className="border rounded-xl">
       <TableHeader>
         <TableRow>
-          <TableHead className="w-10"></TableHead>
+          <TableHead className="w-10" />
           <TableHead>Title</TableHead>
           <TableHead className="w-32">Due</TableHead>
           <TableHead className="w-24">Priority</TableHead>
-          <TableHead className="w-10"></TableHead>
+          <TableHead className="w-10" />
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -60,12 +61,12 @@ export default function TodoTable({ tasks, emptyMessage }: Props) {
               {task.priority ?? "—"}
             </TableCell>
             <TableCell>
-              <button
+              <Button
                 onClick={() => remove(task.id)}
                 className="p-1 hover:bg-muted rounded-md"
               >
                 <Trash2 size={16} />
-              </button>
+              </Button>
             </TableCell>
           </TableRow>
         ))}

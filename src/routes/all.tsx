@@ -1,6 +1,6 @@
 import AddTaskBar from "@/components/AddTaskBar";
 import TodoTable from "@/components/TodoTable";
-import { useTasks } from "@/lib/taskContext";
+import { useTasks } from "@/hooks/useTasks";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/all")({
